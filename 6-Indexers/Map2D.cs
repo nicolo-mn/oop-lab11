@@ -63,7 +63,7 @@ namespace Indexers
         /// <inheritdoc cref="IEquatable{T}.Equals(T)"/>
         public bool Equals(Map2D<TKey1, TKey2, TValue> other)
         {
-            return Equals(this._dict, other._dict);
+            return Equals(_dict, other._dict);
         }
 
         /// <inheritdoc cref="IEquatable{T}.Equals(T)"/>
@@ -71,7 +71,7 @@ namespace Indexers
         {
             if (other is Map2D<TKey1, TKey2, TValue> otherMap2d)
             {
-                return this.Equals(otherMap2d);
+                return Equals(otherMap2d);
             }
 
             return false;
