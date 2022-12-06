@@ -46,11 +46,33 @@ namespace Iterators
                 });
 
             Console.WriteLine();
+            // var a = Java8StreamOperations.SkipSome(numbers, 1);
+            // var b = Java8StreamOperations.TakeSome(a, len - 2);
+            // var c = Java8StreamOperations.Filter(b, optN => optN.HasValue);
+            // var d = Java8StreamOperations.Map(c, optN => optN.Value);
+            // var res = Java8StreamOperations.Reduce(d, new Dictionary<int, int>(), (d, n) => {
+            //         if (!d.ContainsKey(n))
+            //         {
+            //             d[n] = 1;
+            //         }
+            //         else
+            //         {
+            //             d[n]++;
+            //         }
 
+            //         return d;
+            //     });
+            // foreach (KeyValuePair<int, int> kv in res)
+            // {
+            //     Console.WriteLine(kv);
+            // }
+            // Console.WriteLine();
             foreach (KeyValuePair<int, int> kv in occurrences)
             {
                 Console.WriteLine(kv);
             }
+            
+
         }
     }
 }
