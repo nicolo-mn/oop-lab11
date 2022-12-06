@@ -72,9 +72,12 @@ namespace Properties
         // TODO generate Equals(object obj)
         public override bool Equals(object obj)
         {
-
-            Card arg = (Card)obj;
-            return arg != null && arg.Name == Name && arg.Seed == Seed && arg.Ordinal == Ordinal;
+            if (obj is Card)
+            {
+                Card arg = obj as Card;
+                return arg != null && arg.Name == Name && arg.Seed == Seed && arg.Ordinal == Ordinal;
+            }
+            return false;
         }
         // TODO generate GetHashCode()
         public override int GetHashCode()
