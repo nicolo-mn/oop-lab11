@@ -34,26 +34,8 @@ namespace ComplexAlgebra
             get => Math.Sqrt(Real*Real + Imaginary*Imaginary);
         }
 
-        public double Phase
-        {
-            get
-            {
-                if (Real == 0)
-                {
-                    if (Imaginary > 0)
-                    {
-                        return Math.PI / 2;
-                    }
-                    else if (Imaginary < 0)
-                    {
-                        return -Math.PI / 2;
-                    }
-                    else return 0;
-                }
-                return Math.Atan(Imaginary)/Real;
-            }
-            
-        }
+        public double Phase => Math.Atan2(Imaginary, Real);
+
 
         public Complex Complement() => new Complex(Real, -Imaginary);
 
@@ -63,8 +45,18 @@ namespace ComplexAlgebra
 
         public override string ToString()
         {
-            char sign = Imaginary >= 0 ? '+' : '-'; 
-            return $"{Real}{sign}i{Math.Abs(Imaginary)}";
+            if (Imaginary == 0.0) return Real.ToString();
+            var imAbs = Math.Abs(Imaginary);
+            var imValue = imAbs == 1.0 ? "" : imAbs.ToString();
+            string sign;
+            if (Real == 0d)
+            {
+                sign = Imaginary > 0 ? "" : "-";
+                return sign + "i" + imValue;
+            }
+
+            sign = Imaginary > 0 ? "+" : "-";
+            return $"{Real} {sign} i{imValue}";
         }
 
         public override bool Equals(object obj)
