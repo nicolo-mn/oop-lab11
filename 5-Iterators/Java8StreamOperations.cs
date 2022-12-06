@@ -106,9 +106,18 @@ namespace Iterators
         public static TOther Reduce<TAny, TOther>(this IEnumerable<TAny> sequence, TOther seed, Func<TOther, TAny, TOther> reducer)
         {
             TOther result = seed;
+            bool first = true;
             foreach (var item in sequence)
             {
-                result = reducer(seed, item);
+                if (first)
+                {
+                    first = false;
+                    result = reducer(seed, item);
+                }
+                else
+                {
+                result = reducer(result, item);
+                }
             }
             return result;
         }
@@ -185,6 +194,10 @@ namespace Iterators
                     {
                         allTrue = false;
                     }
+                }
+                else
+                {
+                    break;
                 }
             }
         }
