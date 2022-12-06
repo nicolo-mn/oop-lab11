@@ -9,7 +9,7 @@ namespace Indexers
     public class Map2D<TKey1, TKey2, TValue> : IMap2D<TKey1, TKey2, TValue>
     {
         /// <inheritdoc cref="IMap2D{TKey1, TKey2, TValue}.NumberOfElements" />
-        private Dictionary<Tuple<TKey1, TKey2>, TValue> _dict = new Dictionary<Tuple<TKey1, TKey2>, TValue>();
+        private readonly Dictionary<Tuple<TKey1, TKey2>, TValue> _dict = new Dictionary<Tuple<TKey1, TKey2>, TValue>();
         public int NumberOfElements
         {
             get => _dict.Count;
@@ -19,7 +19,7 @@ namespace Indexers
         public TValue this[TKey1 key1, TKey2 key2]
         {
             get => _dict[Tuple.Create(key1, key2)];
-            set =>_dict[Tuple.Create(key1, key2)] = value;
+            set => _dict[Tuple.Create(key1, key2)] = value;
         }
 
         /// <inheritdoc cref="IMap2D{TKey1, TKey2, TValue}.GetRow(TKey1)" />
@@ -60,11 +60,21 @@ namespace Indexers
             }
         }
 
-        /// <inheritdoc cref="IEquatable{T}.Equals(T)" />
+        /// <inheritdoc cref="IEquatable{T}.Equals(T)"/>
+        public bool Equals(Map2D<TKey1, TKey2, TValue> other)
+        {
+            return Equals(this._dict, other._dict);
+        }
+
+        /// <inheritdoc cref="IEquatable{T}.Equals(T)"/>
         public bool Equals(IMap2D<TKey1, TKey2, TValue> other)
         {
-            // TODO: improve
-            return base.Equals(other);
+            if (other is Map2D<TKey1, TKey2, TValue> otherMap2d)
+            {
+                return this.Equals(otherMap2d);
+            }
+
+            return false;
         }
 
         /// <inheritdoc cref="object.Equals(object?)" />
@@ -80,8 +90,7 @@ namespace Indexers
         /// <inheritdoc cref="object.GetHashCode"/>
         public override int GetHashCode()
         {
-            // TODO: improve
-            return base.GetHashCode();
+            return _dict != null ? _dict.GetHashCode() : 0;
         }
 
         /// <inheritdoc cref="IMap2D{TKey1, TKey2, TValue}.ToString"/>
@@ -90,7 +99,7 @@ namespace Indexers
             var str = "[ ";
             foreach (var tuple in _dict.Keys)
             {
-                str += $"({tuple.Item1},{tuple.Item2},{_dict[tuple]})";
+                str += $"({tuple.Item1},{tuple.Item2},{_dict[tuple]}) ";
             }
             str += "]";
             return str;
